@@ -1,15 +1,20 @@
-<%@ Page Language="C#" MasterPageFile="~/Admin/AdminMenuMasterPage.master" AutoEventWireup="true" CodeFile="frmJobSeekerResponseToRecruiter.aspx.cs" Inherits="Admin_ViewReports_Jobseeker_frmJobSeekerInfoAppliedJob" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/Recruiter/RecruiterMasterPage.master" AutoEventWireup="true" CodeFile="frmJobSeekerResponseToRecruiter.aspx.cs" Inherits="Recruiter_SearchJobSeeker_frmJobSeekerInfoAppliedJob" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <table border="0" cellpadding="0" cellspacing="0" >
+    <table border="0" cellpadding="0" cellspacing="0" style="width: 858px">
         <tr>
-            <td align="center">
-                <asp:Label ID="lblMsg" runat="server" Style="position: relative"></asp:Label></td>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+            </td>
         </tr>
         <tr>
-            <td align="center" style="height: 197px">
+            <td align="center" style="height: 24px">
+              </td>
+        </tr>
+        <tr>
+            <td align="center">
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
                     EmptyDataText="No JobSeeker Found" Font-Size="Small" OnPageIndexChanging="GridView1_PageIndexChanging"
-                    OnSelectedIndexChanging="GridView1_SelectedIndexChanging" PageSize="5" Width="617px" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                    OnSelectedIndexChanging="GridView1_SelectedIndexChanging" PageSize="5" Width="697px">
                     <EmptyDataRowStyle Font-Bold="True" ForeColor="Red" />
                     <Columns>
                         <asp:CommandField ButtonType="Button" SelectText="Details" ShowSelectButton="True" />
@@ -25,7 +30,7 @@
                         </asp:Literal>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Job ID">
+                        <asp:TemplateField HeaderText="Job Type">
                             <ItemTemplate>
                                 <asp:Literal ID="lblJobID" runat="server" Text='<%#Eval("JobID") %>'>
                         </asp:Literal>
@@ -39,7 +44,7 @@
                         </asp:TemplateField>
                        
                     </Columns>
-                    <HeaderStyle BackColor="Purple" ForeColor="#E3C7DA" />
+                    <HeaderStyle BackColor="DarkBlue" ForeColor="#80FFFF" />
                 </asp:GridView>
             </td>
         </tr>

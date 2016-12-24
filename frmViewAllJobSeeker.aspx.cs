@@ -9,42 +9,55 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Recruiter_SearchJobSeeker_frmJobSeekerInfoAppliedJob : System.Web.UI.Page
+public partial class Recruiter_SearchJobSeeker_frmViewAllJobSeeker : System.Web.UI.Page
 {
     JobSeekerResponseToJobBL jobseeker = new JobSeekerResponseToJobBL();
-   JobSeekerResponseToJobBL response = new JobSeekerResponseToJobBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["UserName"] == null)
         {
             Response.Redirect("~/frmRecruiterLogin.aspx");
-
         }
-        BindGridview();    
+
     }
     private void BindGridview()
     {
-        GridView1.DataSource = response.ShowJobSeekerResponseDetail();
-        GridView1.DataBind();
+        try
+        {
+            GridView1.DataSource = jobseeker.ShowAllJobSeeker();
+            GridView1.DataBind();
+        }
+        catch (Exception ex)
+        {
+            lblMsg.Text = ex.Message;
+        }
     }
-   
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            BindGridview();
+        }
+        catch (Exception ex)
+        {
+            lblMsg.Text = ex.Message;
+        }
+
+    }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
         {
             GridView1.PageIndex = e.NewPageIndex;
             BindGridview();
-
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            
-            throw;
+            lblMsg.Text = ex.Message;
         }
     }
     protected void GridView1_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
     {
-
         try
         {
             GridView1.SelectedIndex = e.NewSelectedIndex;
@@ -54,15 +67,14 @@ public partial class Recruiter_SearchJobSeeker_frmJobSeekerInfoAppliedJob : Syst
                 {
                     Literal l;
                     l = (Literal)gr.FindControl("lblId");
-                    Session["JobSeekerId"] = l.Text;
-                    Response.Redirect("~/Recruiter/SearchJobSeeker/frmJobSeekerAppliedJobDetail.aspx");
+                    Session["JobSeekerId"] = l.Text; 
+                    Response.Redirect("~/Recruiter/SearchJobSeeker/frmJobSeekerFullDetail.aspx");
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            lblMsg.Text = ex.Message;
         }
     }
 }

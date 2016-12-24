@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Jobseeker_frmFullInformationaboutJobseeker : System.Web.UI.Page
+public partial class Recruiter_SearchJobSeeker_frmFullInformationaboutJobseeker : System.Web.UI.Page
 {
     JobSeekerRegistrationBL jobseeker = new JobSeekerRegistrationBL();
     protected void Page_Load(object sender, EventArgs e)
@@ -97,20 +97,17 @@ public partial class Admin_ViewReports_Jobseeker_frmFullInformationaboutJobseeke
                     {
                         hypResume.Text = dr3[1].ToString();
                         hypResume.NavigateUrl = ("~/UploadedResume/" + dr3[1].ToString());
-
                     }
                     else
                     {
                         hypResume.Text = "Resume Not Available";
-
                     }
                 }
             }
-
         }
     }
     protected void btnOK_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Admin/ViewReports/Jobseeker/frmJobSeekerAppliedJobDetail.aspx");
+        Response.Redirect("~/Recruiter/SearchJobSeeker/frmJobSeekerAppliedJobDetail.aspx");
     }
 }

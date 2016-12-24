@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Jobseeker_frmJobSeekerAppliedJobDetail : System.Web.UI.Page
+public partial class Recruiter_SearchJobSeeker_frmJobSeekerAppliedJobDetail : System.Web.UI.Page
 {
     JobSeekerResponseToJobBL jobseeker = new JobSeekerResponseToJobBL();
     RecruiterResponseToJobSeekeBL recruiter = new RecruiterResponseToJobSeekeBL();
@@ -56,15 +56,20 @@ public partial class Admin_ViewReports_Jobseeker_frmJobSeekerAppliedJobDetail : 
             GridView1.PageIndex = e.NewPageIndex;
             BindGridview();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            
-            throw;
+            lblMsg.Text = ex.Message;
         }
-
     }
     protected void lnkFullInfo_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Admin/ViewReports/Jobseeker/frmFullInformationaboutJobseeker.aspx");
+        Response.Redirect("~/Recruiter/SearchJobSeeker/frmFullInformationaboutJobseeker.aspx");
+    }
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "SendMail")
+        {
+            Server.Transfer("~/Recruiter/SearchJobSeeker/frmSendMail.aspx?a="+lblEmail.Text);
+        }
     }
 }

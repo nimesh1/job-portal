@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Recruiter_frmModifyRecruiterOrganizationDetail : System.Web.UI.Page
+public partial class Recruiter_Modification_frmModifyRecruiterOrganizationDetail : System.Web.UI.Page
 {
     RecruiterRegistrationBL recruiter = new RecruiterRegistrationBL();
     protected void Page_Load(object sender, EventArgs e)
@@ -47,30 +47,26 @@ public partial class Admin_ViewReports_Recruiter_frmModifyRecruiterOrganizationD
         }
         else
         {
-            lblMsg.Text = "No Row Found...!";
+            lblMsg.Text = "No Data Found...!";
         }
     }
-    //protected void btnModify_Click(object sender, EventArgs e)
-    //{       recruiter.UserName=Session["UserName"].ToString();
-          
-    //        recruiter.OrganisationName = txtOrgName.Text.Trim();
-    //        recruiter.BusinessSector=  txtBusinessSector.Text.Trim();
-    //        recruiter.Certificate1= txtCertificate1.Text.Trim();
-    //        recruiter.Certificate2=  txtCertificate2.Text.Trim();
-    //        recruiter.Certificate3=txtCertificate3.Text.Trim();
-    //        recruiter.Website=txtWebsite.Text.Trim();
-    //        recruiter.EmailID1 = txtEmailId1.Text.Trim();
-    //        recruiter.EmailID2 = txtEmailId2.Text.Trim();
-    //        recruiter.Address = txtAddress.Text.Trim();
-    //        recruiter.OrganisationEnvironment = txtOrgEnv.Text.Trim();
-    //        recruiter.TermsAndCondition = txtTerms.Text.Trim();
-    //        recruiter.Others = txtOthers.Text.Trim();
-    //        recruiter.SizeOfOrganisation =int.Parse(txtOrgSize.Text.Trim());
-    //        recruiter.ModifyRecruiterOrganisationDetails();
-    //        lblMsg.Text = "Updated...!";
-    //}
-    protected void btnBack_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Admin/ViewReports/Recruiter/frmUpdateRecruiterInfo.aspx");
+    protected void btnModify_Click(object sender, EventArgs e)
+    {     
+            recruiter.UserName=Session["UserName"].ToString();
+            recruiter.OrganisationName = txtOrgName.Text.Trim();
+            recruiter.BusinessSector=  txtBusinessSector.Text.Trim();
+            recruiter.Certificate1= txtCertificate1.Text.Trim();
+            recruiter.Certificate2=  txtCertificate2.Text.Trim();
+            recruiter.Certificate3=txtCertificate3.Text.Trim();
+            recruiter.Website=txtWebsite.Text.Trim();
+            recruiter.EmailID1 = txtEmailId1.Text.Trim();
+            recruiter.EmailID2 = txtEmailId2.Text.Trim();
+            recruiter.Address = txtAddress.Text.Trim();
+            recruiter.OrganisationEnvironment = txtOrgEnv.Text.Trim();
+            recruiter.TermsAndCondition = txtTerms.Text.Trim();
+            recruiter.Others = txtOthers.Text.Trim();
+            recruiter.SizeOfOrganisation =int.Parse(txtOrgSize.Text.Trim());
+            recruiter.ModifyRecruiterOrganisationDetails();
+            lblMsg.Text = "Updated...!";
     }
 }

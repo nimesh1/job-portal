@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Recruiter_frmModifyRecruiterAccountDetail : System.Web.UI.Page
+public partial class Recruiter_Modification_frmModifyRecruiterAccountDetail : System.Web.UI.Page
 {
     RecruiterRegistrationBL recruiter = new RecruiterRegistrationBL();
     protected void Page_Load(object sender, EventArgs e)
@@ -20,7 +20,7 @@ public partial class Admin_ViewReports_Recruiter_frmModifyRecruiterAccountDetail
         }
         if (!IsPostBack)
         {
-           txtName.Text = Session["UserName"].ToString();
+            txtName.Text = Session["UserName"].ToString();
             recruiter.UserName = txtName.Text;
             DataSet ds;
             ds = recruiter.ShowRecruiterLoginInfo();
@@ -36,6 +36,7 @@ public partial class Admin_ViewReports_Recruiter_frmModifyRecruiterAccountDetail
     }
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
+
         try
         {
             recruiter.UserName = txtName.Text;
@@ -45,6 +46,7 @@ public partial class Admin_ViewReports_Recruiter_frmModifyRecruiterAccountDetail
             {
                 lblMsg.Text = "Your password Is Wrong";
                 txtPassword.Focus();
+
             }
            else
             {
@@ -60,9 +62,5 @@ public partial class Admin_ViewReports_Recruiter_frmModifyRecruiterAccountDetail
 
             throw;
         }
-    }
-    protected void btnBack_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Admin/ViewReports/Recruiter/frmUpdateRecruiterInfo.aspx");
     }
 }

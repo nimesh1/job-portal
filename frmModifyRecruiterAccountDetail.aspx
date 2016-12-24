@@ -1,7 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/Admin/AdminMenuMasterPage.master" AutoEventWireup="true" CodeFile="frmModifyRecruiterAccountDetail.aspx.cs" Inherits="Admin_ViewReports_Recruiter_frmModifyRecruiterAccountDetail" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/Recruiter/RecruiterMasterPage.master" AutoEventWireup="true" CodeFile="frmModifyRecruiterAccountDetail.aspx.cs" Inherits="Recruiter_Modification_frmModifyRecruiterAccountDetail" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <br />
-    <br />
     <table align="center" border="0" cellpadding="0" cellspacing="0" style="width: 602px">
         <tr>
             <td align="center" colspan="3" style="font-size: 12pt; color: #ffffff">
@@ -14,7 +12,7 @@
         </tr>
         <tr>
             <td align="center" colspan="3" style="font-weight: bold; color: #ffffff; text-align: center">
-                <span style="font-size: 14pt; color: #800080; text-decoration: underline">Login Information</span></td>
+                <span style="font-size: 14pt; color: darkblue; text-decoration: underline">Login Information</span></td>
         </tr>
         <tr>
             <td align="center" colspan="3" style="font-weight: bold; color: #ffffff; text-align: center">
@@ -23,7 +21,7 @@
         </tr>
         <tr style="font-size: 12pt">
             <td align="left" style="font-size: 12pt; width: 151px; color: #ffffff; height: 24px">
-                <strong style="color: #800080">User ID:<span style="color: #ffcc00"></span></strong></td>
+                <strong style="color: darkblue">User ID:<span style="color: #ffcc00"></span></strong></td>
             <td align="left" style="font-size: 12pt; width: 36px; color: #ffffff; height: 24px">
                 <span style="color: red; font-weight: bold;">*</span></td>
             <td align="left">
@@ -32,8 +30,8 @@
             </td>
         </tr>
         <tr style="font-weight: bold; font-size: 12pt">
-            <td align="left" style="color: #800080">
-                <span style="color: #800080">Old Passw</span>ord:<span style="color: #ffcc00"></span></td>
+            <td align="left" style="color: darkblue">
+                <span>Old Passw</span>ord:<span style="color: #ffcc00"></span></td>
             <td align="left" style="font-size: 12pt; width: 36px; color: #ffffff">
                 <span style="color: red; font-weight: bold;">*</span></td>
             <td align="left">
@@ -43,30 +41,32 @@
                     ErrorMessage="*" ValidationGroup="g1" Width="16px"></asp:RequiredFieldValidator></td>
         </tr>
         <tr style="font-weight: bold; font-size: 12pt">
-            <td align="left" style="color: #800080; height: 24px;">
+            <td align="left" style="color: darkblue; height: 24px;">
                 New Password:</td>
             <td align="left" style="font-size: 12pt; width: 36px; color: #ffffff; height: 24px;">
             </td>
             <td align="left" style="height: 24px">
                 <asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password" ValidationGroup="g1"
                     Width="191px"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPassword"
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtNewPassword"
                     ErrorMessage="*" ValidationGroup="g1"></asp:RequiredFieldValidator></td>
         </tr>
         <tr style="font-size: 12pt">
             <td align="left" style="font-size: 12pt; width: 151px; color: #ffffff">
-                <strong style="color: #800080"><span>Verify Pas</span>sword:<span style="color: #ffcc00"></span></strong></td>
+                <strong style="color: darkblue"><span>Verify Pas</span>sword:<span style="color: #ffcc00"></span></strong></td>
             <td align="left" style="color: darkblue">
                 <span style="color: #ffcc00"><strong style="color: red; font-weight: bold;">*</strong></span></td>
             <td align="left" style="font-weight: bold; color: #ffffff">
                 <asp:TextBox ID="txtConfirm" runat="server" TextMode="Password" Width="191px" ValidationGroup="g1"></asp:TextBox><span
-                    style="color: #ffcc00"> </span>
-                <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="txtPassword"
-                    ControlToValidate="txtConfirm" ErrorMessage="Password Mismatch" Font-Bold="True" Width="169px" ValidationGroup="g1"></asp:CompareValidator></td>
+                    style="color: #ffcc00"> 
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtConfirm"
+                    ErrorMessage="*" Style="position: relative" ValidationGroup="g1"></asp:RequiredFieldValidator></span><asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="txtNewPassword"
+                    ControlToValidate="txtConfirm" ErrorMessage="Password Mismatch" Font-Bold="True" Width="139px" ValidationGroup="g1"></asp:CompareValidator>
+                </td>
         </tr>
         <tr style="font-size: 12pt">
             <td align="left" style="font-size: 12pt; width: 151px; color: #ffffff">
-                <strong style="color: #800080">
+                <strong style="color: darkblue">
                 <span>Hint</span> Question:<span style="color: #ffcc00"></span></strong></td>
             <td align="left" style="color: darkblue">
                 <span style="color: red; font-weight: bold;">*</span></td>
@@ -78,7 +78,7 @@
         </tr>
         <tr style="font-size: 12pt">
             <td align="left" style="font-size: 12pt; width: 151px; color: #ffffff; height: 24px;">
-                <strong style="color: #800080">Answer:<span style="color: #ffcc00"></span></strong></td>
+                <strong style="color: darkblue">Answer:<span style="color: #ffcc00"></span></strong></td>
             <td align="left" style="color: darkblue; height: 24px;">
                 <span style="color: red; font-weight: bold;">*</span></td>
             <td align="left" style="height: 24px">
@@ -95,7 +95,7 @@
             <td align="center" colspan="4">
                 <asp:Button ID="btnUpdate" runat="server" OnClick="btnUpdate_Click" Text="Update"
                     ValidationGroup="g1" Width="79px" />
-                <asp:Button ID="btnBack" runat="server" OnClick="btnBack_Click" Text="Back" /></td>
+            </td>
         </tr>
         <tr style="font-size: 12pt">
             <td align="center" colspan="3" style="font-size: 12pt; color: #ffffff; height: 19px;">
