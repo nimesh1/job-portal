@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Admin/AdminMenuMasterPage.master" AutoEventWireup="true" CodeFile="frmFullSelectedJobDetail.aspx.cs" Inherits="Admin_ViewReports_Jobseeker_frmFullSelectedJobDetail" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/JobSeeker/JobSeekerMasterPage.master" AutoEventWireup="true" CodeFile="frmFullSelectedJobDetail.aspx.cs" Inherits="JobSeeker_SearchJobs_frmFullSelectedJobDetail" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <table align="center" border="0" cellpadding="0" cellspacing="0" style="width: 508px">
         <tr>

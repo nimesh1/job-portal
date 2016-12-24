@@ -9,14 +9,14 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Recruiter_frmShowOrganizationDetail : System.Web.UI.Page
+public partial class JobSeeker_SearchJobs_frmShowOrganizationDetail : System.Web.UI.Page
 {
     RecruiterRegistrationBL recruiter = new RecruiterRegistrationBL();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["UserName"] == null)
+        if (Session["JobSeekerId"] == null)
         {
-            Response.Redirect("~/Admin/frmAdminLogin.aspx");
+            Response.Redirect("~/frmJobSeekerLogin.aspx");
         }
         if (!IsPostBack)
         { BindData(); }

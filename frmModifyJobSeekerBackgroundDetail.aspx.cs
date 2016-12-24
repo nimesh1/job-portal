@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Jobseeker_frmModifyJobSeekerBackgroundDetail : System.Web.UI.Page
+public partial class JobSeeker_Modification_frmModifyJobSeekerBackgroundDetail : System.Web.UI.Page
 {
     QualificationBL qual = new QualificationBL();
     CountryBusinessLayer country = new CountryBusinessLayer();
@@ -20,9 +20,9 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobSeekerBackgroundDet
     int year = 1980;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["UserName"] == null)
+        if (Session["JobSeekerId"] == null)
         {
-            Response.Redirect("~/Admin/frmAdminLogin.aspx");
+            Response.Redirect("~/frmJobSeekerLogin.aspx");
         }
         if (!IsPostBack)
         {
@@ -51,10 +51,10 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobSeekerBackgroundDet
             {
                 ddlPassingYear.Items.Add(year.ToString());
                 year++;
-
             }
+            ddlPassingYear.Items.Insert(0, "---Select---");
+            BindData();
         }
-        BindData();
     }
     private void BindData()
     {
@@ -90,10 +90,14 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobSeekerBackgroundDet
             {
                 li3.Selected = true;
             }
-            ListItem li4 = ddlTotExp.Items.FindByText(dr[6].ToString());
-            if (li4 != null)
+            string[] str = dr[6].ToString().Trim().Split(' ');
+            if (str.Length > 0)
             {
-                li4.Selected = true;
+                ListItem li4 = ddlTotExp.Items.FindByText(str[0]);
+                if (li4 != null)
+                {
+                    li4.Selected = true;
+                }
             }
             ListItem li5 = ddlWorkField.Items.FindByText(dr[7].ToString());
             if (li5 != null)
@@ -104,8 +108,10 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobSeekerBackgroundDet
     }
     protected void lstUniversity_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (lstUniversity.SelectedIndex == 0)
+        txtUniversity.ReadOnly = true;
+        if (lstUniversity.SelectedIndex == 1)
         {
+            txtUniversity.ReadOnly = false;
             txtUniversity.Text = "";
             txtUniversity.Focus();
         }
@@ -113,49 +119,46 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobSeekerBackgroundDet
     }
     protected void btnModify_Click(object sender, EventArgs e)
     {
-        try
+        if (lstUniversity.SelectedItem.Text =="Others" && txtUniversity.Text == "")
+            Page.RegisterClientScriptBlock("Dhanush", "<script>alert('Select University')</script>");
+        else
         {
-            //jobseeker.JobSeekerId = Session["JobSeekerId"].ToString
-            jobseeker.JobSeekerId = "S";
-            jobseeker.HighestDegree = lstDegree.SelectedItem.Text;
-            jobseeker.Specialisation = txtSpecialization.Text.Trim();
-            jobseeker.PassingYear = int.Parse(ddlPassingYear.SelectedValue);
-            jobseeker.Percentage = float.Parse(txtPercentage.Text.Trim());
-            if (lstUniversity.SelectedIndex == 0)
-                jobseeker.University = txtUniversity.Text.Trim();
-            else
-                jobseeker.University = lstUniversity.SelectedItem.Text;
-            if (ddlCountryName.SelectedIndex == 0)
+            try
             {
-                ddlCountryName.Focus();
-            }
-            else
-            {
-                jobseeker.Country = ddlCountryName.SelectedItem.Text;
-            }
-          
-            if (ddlTotExp.SelectedItem.Text == "---Select---")
-            {
-                ddlTotExp.Focus();
-            }
-            else
-            {
-                jobseeker.TechnicalExp = ddlTotExp.SelectedItem.Text + ddlDuration.SelectedItem.Text;
-                jobseeker.WorkField = ddlWorkField.SelectedItem.Text;
-                jobseeker.ModifyJobseekerBackgroundDetails();
-                lblMsg.Text = "Updated...!";
+                jobseeker.JobSeekerId = Session["JobSeekerId"].ToString();
+                jobseeker.HighestDegree = lstDegree.SelectedItem.Text.Trim();
+                jobseeker.Specialisation = txtSpecialization.Text.Trim();
+                jobseeker.PassingYear = int.Parse(ddlPassingYear.SelectedValue.Trim());
+                jobseeker.Percentage = float.Parse(txtPercentage.Text.Trim());
+                if (lstUniversity.SelectedIndex == 1)
+                    jobseeker.University = txtUniversity.Text.Trim();
+                else
+                    jobseeker.University = lstUniversity.SelectedItem.Text.Trim();
+                if (ddlCountryName.SelectedIndex == 0)
+                {
+                    ddlCountryName.Focus();
+                }
+                else
+                {
+                    jobseeker.Country = ddlCountryName.SelectedItem.Text.Trim();
+                }
 
+                if (ddlTotExp.SelectedItem.Text == "---Select---")
+                {
+                    ddlTotExp.Focus();
+                }
+                else
+                {
+                    jobseeker.TechnicalExp = ddlTotExp.SelectedItem.Text.Trim() + " " + ddlDuration.SelectedItem.Text.Trim();
+                    jobseeker.WorkField = ddlWorkField.SelectedItem.Text.Trim();
+                    jobseeker.ModifyJobseekerBackgroundDetails();
+                    lblMsg.Text = "Updated...!";
+                }
             }
-               
+            catch (Exception ex)
+            {
+                lblMsg.Text = ex.Message;
+            }
         }
-        catch (Exception)
-        {
-
-            throw;
-        }
-    }
-    protected void btnBack_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Admin/ViewReports/Jobseeker/frmUpdateJobSeekerInfo.aspx");
     }
 }

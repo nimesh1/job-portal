@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Jobseeker_frmFullSelectedJobDetail : System.Web.UI.Page
+public partial class JobSeeker_SearchJobs_frmFullSelectedJobDetail : System.Web.UI.Page
 {
     RecruiterJobOpeningAndOtherDetail job = new RecruiterJobOpeningAndOtherDetail();
     JobSeekerResponseToJobBL response = new JobSeekerResponseToJobBL();

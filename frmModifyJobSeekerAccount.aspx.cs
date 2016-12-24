@@ -9,15 +9,15 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Jobseeker_frmModifyJobSeekerAccount : System.Web.UI.Page
+public partial class JobSeeker_Modification_frmModifyJobSeekerAccount : System.Web.UI.Page
 {
     JobSeekerRegistrationBL jobseeker = new JobSeekerRegistrationBL();
     DataRow dr;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["UserName"] == null)
+        if (Session["JobSeekerId"] == null)
         {
-            Response.Redirect("~/Admin/frmAdminLogin.aspx");
+            Response.Redirect("~/frmJobSeekerLogin.aspx");
         }
         if (!IsPostBack)
         {
@@ -69,9 +69,5 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobSeekerAccount : Sys
             
             throw;
         }
-    }
-    protected void btnBack_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Admin/ViewReports/Jobseeker/frmUpdateJobSeekerInfo.aspx");
     }
 }

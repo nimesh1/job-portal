@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Jobseeker_frmModifyJobseekerJobDetails : System.Web.UI.Page
+public partial class JobSeeker_Modification_frmModifyJobseekerJobDetails : System.Web.UI.Page
 {
     JobTypeBL job = new JobTypeBL();
     CountryBusinessLayer country = new CountryBusinessLayer();
@@ -18,9 +18,9 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobseekerJobDetails : 
     JobSeekerRegistrationBL jobseeker = new JobSeekerRegistrationBL();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["UserName"] == null)
+        if (Session["JobSeekerId"] == null)
         {
-            Response.Redirect("~/Admin/frmAdminLogin.aspx");
+            Response.Redirect("~/frmJobSeekerLogin.aspx");
         }
         if (!IsPostBack)
         {
@@ -43,8 +43,7 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobseekerJobDetails : 
             ddlCountry2.Items.Insert(0, "---Select---");
             BindData();
         }
-
-
+        lblMsg.Text = "";
     }
     private void BindData()
     {
@@ -149,10 +148,9 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobseekerJobDetails : 
                 lblMsg.Text = "No Row Found";
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            
-            throw;
+            lblMsg.Text = ex.Message;
         }
     }
     protected void ddlCountry1_SelectedIndexChanged(object sender, EventArgs e)
@@ -222,97 +220,105 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobseekerJobDetails : 
     }
     protected void btnModify_Click(object sender, EventArgs e)
     {
-
-        try
+        if (ddlCountry1.SelectedItem.Text != "---Select---")
         {
-            //jobseeker.JobSeekerId = Session["JobSeekerId"].ToString();
-            jobseeker.JobSeekerId = "S";
-            jobseeker.JobTitle = ddlJobType.SelectedItem.Text;
-            jobseeker.Location1 = ddlCity1.SelectedItem.Text;
-            jobseeker.State1 = ddlState1.SelectedItem.Text;
-            jobseeker.Country1 = ddlCountry1.SelectedItem.Text;
-            if (ddlCountry2.SelectedItem.Text == "---Select---")
-            {
-                jobseeker.Country2 = "";
-                jobseeker.Location2 = "";
-                jobseeker.State2 = "";
-            }
-            else
-            {
-                jobseeker.Country2 = ddlCountry2.SelectedItem.Text;
-                jobseeker.Location2 = ddlCity2.SelectedItem.Text;
-                jobseeker.State2 = ddlState2.SelectedItem.Text;
-            }
-
-
-            if (chkWillingRelocate.Checked)
-            {
-                jobseeker.WillRelocate = "Yes";
-            }
-            else
-            {
-                jobseeker.WillRelocate = "No";
-
-            }
-            if (chktelecommute.Checked)
-            {
-                jobseeker.WillTelecommute = "Yes";
-            }
-            else
-            {
-                jobseeker.WillTelecommute = "No";
-
-            }
-            jobseeker.WillTravel = ddlTravelWill.SelectedItem.Text;
-            jobseeker.FullTimeSalary = ddlFullTimeSalary.SelectedItem.Text;
-            jobseeker.HourlySalary = ddlPartTimeSalary.SelectedItem.Text;
-            string Employement = "";
+            int gg = 0;
             for (int count = 0; count < lstEmploymentType.Items.Count; count++)
             {
-
                 if (lstEmploymentType.Items[count].Selected == true)
-                    Employement = Employement + lstEmploymentType.Items[count].Text + ",";
-
-
+                    gg = gg + 1;
             }
-            string[] str = Employement.Split(',');
-            if (str.Length > 0)
+            if (gg >= 3)
             {
-                for (int i = 0; i < str.Length; i++)
+                try
                 {
-                    if (i < 3)
+                    jobseeker.JobSeekerId = Session["JobSeekerId"].ToString();
+                    jobseeker.JobSeekerId = "S";
+                    jobseeker.JobTitle = ddlJobType.SelectedItem.Text;
+                    jobseeker.Location1 = ddlCity1.SelectedItem.Text;
+                    jobseeker.State1 = ddlState1.SelectedItem.Text;
+                    jobseeker.Country1 = ddlCountry1.SelectedItem.Text;
+                    if (ddlCountry2.SelectedItem.Text == "---Select---")
                     {
-                        if (i == 0)
-                        {
-                            jobseeker.TypeOfEmployment1 = str[i].ToString();
-                        }
-                        if (i == 1)
-                        {
-                            jobseeker.TypeOfEmployment2 = str[i].ToString();
-                        }
-                        if (i == 2)
-                        {
-                            jobseeker.TypeOfEmployment3 = str[i].ToString();
-                        }
+                        jobseeker.Country2 = "";
+                        jobseeker.Location2 = "";
+                        jobseeker.State2 = "";
                     }
                     else
                     {
-
-                        break;
+                        jobseeker.Country2 = ddlCountry2.SelectedItem.Text;
+                        jobseeker.Location2 = ddlCity2.SelectedItem.Text;
+                        jobseeker.State2 = ddlState2.SelectedItem.Text;
                     }
+
+
+                    if (chkWillingRelocate.Checked)
+                    {
+                        jobseeker.WillRelocate = "Yes";
+                    }
+                    else
+                    {
+                        jobseeker.WillRelocate = "No";
+
+                    }
+                    if (chktelecommute.Checked)
+                    {
+                        jobseeker.WillTelecommute = "Yes";
+                    }
+                    else
+                    {
+                        jobseeker.WillTelecommute = "No";
+
+                    }
+                    jobseeker.WillTravel = ddlTravelWill.SelectedItem.Text;
+                    jobseeker.FullTimeSalary = ddlFullTimeSalary.SelectedItem.Text;
+                    jobseeker.HourlySalary = ddlPartTimeSalary.SelectedItem.Text;
+                    string Employement = "";
+                    for (int count = 0; count < lstEmploymentType.Items.Count; count++)
+                    {
+
+                        if (lstEmploymentType.Items[count].Selected == true)
+                            Employement = Employement + lstEmploymentType.Items[count].Text + ",";
+                    }
+                    string[] str = Employement.Split(',');
+                    if (str.Length > 0)
+                    {
+                        for (int i = 0; i < str.Length; i++)
+                        {
+                            if (i < 3)
+                            {
+                                if (i == 0)
+                                {
+                                    jobseeker.TypeOfEmployment1 = str[i].ToString();
+                                }
+                                if (i == 1)
+                                {
+                                    jobseeker.TypeOfEmployment2 = str[i].ToString();
+                                }
+                                if (i == 2)
+                                {
+                                    jobseeker.TypeOfEmployment3 = str[i].ToString();
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    jobseeker.ModifyJobseekerJobDetails();
+                    lblMsg.Text = "Updated...!";
+                }
+                catch (Exception ex)
+                {
+                    lblMsg.Text ="You are Leaving One or more Fields.Try Again ! "+ ex.Message;
                 }
             }
-            jobseeker.ModifyJobseekerJobDetails();
-            lblMsg.Text = "Updated...!";
-      }
-        catch (Exception)
-        {
-
-            throw;
+            else
+                Page.RegisterClientScriptBlock("Dhanush", "<script>alert('Please Select Minimum 3 Employment Types')</script>");
         }
-    }
-    protected void btnBack_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Admin/ViewReports/Jobseeker/frmUpdateJobSeekerInfo.aspx");
+        else
+            Page.RegisterClientScriptBlock("Dhanush", "<script>alert('Select Atleast One Prefered Job Location Country ')</script>");
+       
     }
 }

@@ -9,16 +9,16 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.IO;
-public partial class Admin_ViewReports_Jobseeker_frmModifyJobseekerTechnicalSkillDetail : System.Web.UI.Page
+public partial class JobSeeker_Modification_frmModifyJobseekerTechnicalSkillDetail : System.Web.UI.Page
 {
     SkillMasterBL skill = new SkillMasterBL();
     ExperianceBL exp = new ExperianceBL();
     JobSeekerRegistrationBL jobseeker = new JobSeekerRegistrationBL();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["UserName"] == null)
+        if (Session["JobSeekerId"] == null)
         {
-            Response.Redirect("~/Admin/frmAdminLogin.aspx");
+            Response.Redirect("~/frmJobSeekerLogin.aspx");
         }
         int count = 1;
         int year = 1999;
@@ -323,9 +323,5 @@ public partial class Admin_ViewReports_Jobseeker_frmModifyJobseekerTechnicalSkil
 
             throw;
         }
-    }
-    protected void btnBack_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Admin/ViewReports/Jobseeker/frmUpdateJobSeekerInfo.aspx");
     }
 }

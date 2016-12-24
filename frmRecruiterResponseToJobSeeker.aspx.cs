@@ -9,14 +9,14 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Admin_ViewReports_Recruiter_frmRecruiterResponseToJobSeeker : System.Web.UI.Page
+public partial class JobSeeker_SearchJobs_frmRecruiterResponseToJobSeeker : System.Web.UI.Page
 {
     RecruiterResponseToJobSeekeBL recruiter = new RecruiterResponseToJobSeekeBL();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["UserName"] == null)
+        if (Session["JobSeekerId"] == null)
         {
-            Response.Redirect("~/Admin/frmAdminLogin.aspx");
+            Response.Redirect("~/frmJobSeekerLogin.aspx");
         }
         if (!IsPostBack)
         {
@@ -25,7 +25,8 @@ public partial class Admin_ViewReports_Recruiter_frmRecruiterResponseToJobSeeker
     }
     private void BindData()
     {
-        GridView1.DataSource = recruiter.ShowRecruiterResponse();
+        recruiter.JobSeekerId = Session["JobSeekerId"].ToString();
+        GridView1.DataSource = recruiter.ShowRecruiterResponseDetail();
         GridView1.DataBind();
     }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -49,14 +50,18 @@ public partial class Admin_ViewReports_Recruiter_frmRecruiterResponseToJobSeeker
         if (e.CommandName == "JobId")
         {
             str = e.CommandArgument.ToString();
-            Response.Redirect("~/Admin/ViewReports/Recruiter/frmShowJobInfoByJobId.aspx?JobId=" + str);
+            Response.Redirect("~/JobSeeker/SearchJobs/frmShowJobInfoByJobId.aspx?JobId=" + str);
         }
         else if (e.CommandName == "OrgName")
         {
            str= e.CommandArgument.ToString();
-           Response.Redirect("~/Admin/ViewReports/Recruiter/frmShowOrganizationDetail.aspx?OrgName=" + str);
+           Response.Redirect("~/JobSeeker/SearchJobs/frmShowOrganizationDetail.aspx?OrgName=" + str);
         }
 
+
+    }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
 
     }
 }
